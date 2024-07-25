@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #messages { border: 1px solid #ccc; height: 300px; overflow-y: scroll; margin-bottom: 10px; }
+        #input { width: 100%; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Chat</h1>
+    <div id="messages"></div>
+    <input id="input" type="text" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const userId = prompt("Enter your user ID:");
+        const socket = new WebSocket(`ws://localhost:8000/ws/${userId}`);
+
+        socket.onmessage = function(event) {
+            const messagesDiv = document.getElementById("messages");
+            messagesDiv.innerHTML += `<div>${event.data}</div>`;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to the bottom
+        };
+
+        socket.onerror = function(event) {
+            console.error("WebSocket error observed:", event);
+        };
+
+        socket.onclose = function(event) {
+            console.log("WebSocket is closed now.");
+        };
+
+        function sendMessage() {
+            const input = document.getElementById("input");
+            const message = input.value;
+            if (message) {
+                socket.send(message);
+                input.value = ""; // Clear input field
+            }
+        }
+    </script>
+</body>
+</html>
