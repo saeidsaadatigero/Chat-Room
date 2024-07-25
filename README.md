@@ -1,6 +1,6 @@
 # chat room
 
-###می‌توانید با رفتن به آدرس http://localhost:8000 به چت روم دسترسی پیدا کنید و شروع به ارسال پیام کنید.
+می‌توانید با رفتن به آدرس http://localhost:8000 به چت روم دسترسی پیدا کنید و شروع به ارسال پیام کنید.
 
 Your application will be available at http://localhost:8000.
 
